@@ -25,31 +25,32 @@ Passionate about **Edge AI & Real-time Computer Vision** with hands-on experienc
 ---
 
 ## 🛠️ Tech Stack
-### 🧠 Edge AI & Embedded Systems (Core Focus)
-![Orange Pi](https://img.shields.io/badge/Orange%20Pi-FF6600?style=for-the-badge&logo=raspberrypi&logoColor=white)
-![CIX NPU](https://img.shields.io/badge/CIX_NPU_Deployment-000000?style=for-the-badge&logo=chip&logoColor=white)
-![OnnxRuntime](https://img.shields.io/badge/ONNX_Runtime-005CED?style=for-the-badge&logo=onnx&logoColor=white)
-![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux_Embedded-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+
+### 🧠 Edge AI & Embedded Systems
+![Orange Pi](https://img.shields.io/badge/Orange_Pi-FF6600?style=flat&logo=raspberrypi&logoColor=white)
+![CIX NPU](https://img.shields.io/badge/CIX_NPU_Deployment-000000?style=flat&logo=arm&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=flat&logo=c%2B%2B&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux_Embedded-FCC624?style=flat&logo=linux&logoColor=black)
+![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-005CED?style=flat&logo=onnx&logoColor=white)
 
 ### 👁️ Computer Vision & Deep Learning
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![YOLO](https://img.shields.io/badge/YOLOv8%2Fv11-00FFFF?style=for-the-badge&logo=yolo&logoColor=black)
-![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
-![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![YOLO](https://img.shields.io/badge/YOLOv8%2Fv11-00FFFF?style=flat&logo=yolo&logoColor=black)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat&logo=opencv&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=flat&logo=tensorflow&logoColor=white)
 
-### ⚙️ MLOps, Backend & Deployment
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
+### ⚙️ Backend & MLOps
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?style=flat&logo=flask&logoColor=white)
 
-### 📚 Research & Other Tools (NLP/RAG)
-![LangChain](https://img.shields.io/badge/LangChain-121212?style=flat-square&logo=chainlink&logoColor=white)
-![Qdrant](https://img.shields.io/badge/Qdrant-DC244C?style=flat-square&logo=qdrant&logoColor=white)
-![Faiss](https://img.shields.io/badge/Faiss-0467DF?style=flat-square&logo=meta&logoColor=white)
+### 📚 Research Tools
+![LangChain](https://img.shields.io/badge/LangChain-121212?style=flat&logo=chainlink&logoColor=white)
+![Faiss](https://img.shields.io/badge/Faiss-0467DF?style=flat&logo=meta&logoColor=white)
+![Qdrant](https://img.shields.io/badge/Qdrant-DC244C?style=flat&logo=qdrant&logoColor=white)
 ---
 
 ## 🌟 Featured Projects
