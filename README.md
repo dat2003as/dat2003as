@@ -1,6 +1,6 @@
 <div align="center">
-  
-# Vo Quoc Dat
+# 👋 Hi, I'm Vo Quoc Dat
+
 ### Edge AI Engineer | NPU Optimization Specialist
 
 <p align="center">
