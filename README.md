@@ -4,11 +4,13 @@
 ### Edge AI Engineer | NPU Optimization Specialist
 
 <p align="center">
-  <em>Specializing in optimizing Computer Vision models for embedded constraints (Rockchip/Orange Pi). Focused on converting heavy Deep Learning models into real-time edge solutions by bridging the gap between Python research and Hardware deployment.</em>
+  <em>Specializing in optimizing Computer Vision models for embedded constraints (Rockchip/Orange Pi). <br>
+  Focused on bridging the gap between Python Deep Learning research and real-time Hardware deployment.</em>
 </p>
 
 [![](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/dat614943)
 [![](https://img.shields.io/badge/Email-Contact_Me-D14836?style=for-the-badge&logo=gmail)](mailto:dat614943@gmail.com)
+[![](https://img.shields.io/badge/GitHub-Portfolio-181717?style=for-the-badge&logo=github)](https://github.com/dat2003as)
 
 </div>
 
@@ -16,14 +18,59 @@
 
 ## 🛠 The Toolbox: Hardware & AI Integration
 
-My stack focuses on the entire pipeline: from model training to quantization and bare-metal deployment.
+<table>
+  <tr>
+    <td width="20%"><b>Category</b></td>
+    <td width="80%"><b>Technologies</b></td>
+  </tr>
+  <tr>
+    <td><b>Edge Hardware & NPU</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/Orange_Pi_6-E95420?style=flat-square" />
+      <img src="https://img.shields.io/badge/Rockchip_SDK-000000?style=flat-square&logo=c" />
+      <img src="https://img.shields.io/badge/Jetson_Nano-76B900?style=flat-square&logo=nvidia" />
+    </td>
+  </tr>
+  
+  <tr>
+    <td><b>Deep Learning & CV</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white" />
+      <img src="https://img.shields.io/badge/YOLO_v8%2Fv11-00FFFF?style=flat-square" />
+      <img src="https://img.shields.io/badge/Face_Rec_(MobileFaceNet)-4169E1?style=flat-square" />
+      <img src="https://img.shields.io/badge/Person_Re--ID_(OSNet)-8A2BE2?style=flat-square" />
+    </td>
+  </tr>
 
-| **Category** | **Technologies** |
-| :--- | :--- |
-| **Edge Hardware & NPU** | ![Orange Pi](https://img.shields.io/badge/Orange_Pi_6-E95420?style=flat-square) ![Rockchip](https://img.shields.io/badge/Rockchip_SDK-000000?style=flat-square&logo=c) ![NVIDIA](https://img.shields.io/badge/Jetson_Nano-76B900?style=flat-square&logo=nvidia) |
-| **Computer Vision Core** | ![YOLO](https://img.shields.io/badge/YOLO_v8%2Fv11-00FFFF?style=flat-square) ![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv) ![MediaPipe](https://img.shields.io/badge/MediaPipe-00B140?style=flat-square) ![ONNX](https://img.shields.io/badge/ONNX_Runtime-005CED?style=flat-square) |
-| **Backend & Messaging** | ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi) ![ZeroMQ](https://img.shields.io/badge/ZeroMQ-DF0000?style=flat-square) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker) ![Kafka](https://img.shields.io/badge/Kafka-231F20?style=flat-square&logo=apachekafka) |
-| **Languages & Systems** | ![Python](https://img.shields.io/badge/Python_3-3776AB?style=flat-square&logo=python) ![Linux](https://img.shields.io/badge/Ubuntu_Linux-FCC624?style=flat-square&logo=linux) ![Shell](https://img.shields.io/badge/Shell_Scripting-4EAA25?style=flat-square&logo=gnu-bash) |
+  <tr>
+    <td><b>Inference & Search</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/TensorRT-76B900?style=flat-square&logo=nvidia" />
+      <img src="https://img.shields.io/badge/ONNX_Runtime-005CED?style=flat-square" />
+      <img src="https://img.shields.io/badge/Faiss_(Vector_Search)-00ADD8?style=flat-square" />
+      <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv" />
+    </td>
+  </tr>
+
+  <tr>
+    <td><b>Backend & DevOps</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi" />
+      <img src="https://img.shields.io/badge/ZeroMQ-DF0000?style=flat-square" />
+      <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker" />
+      <img src="https://img.shields.io/badge/Kafka-231F20?style=flat-square&logo=apachekafka" />
+    </td>
+  </tr>
+  
+  <tr>
+    <td><b>Languages</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/Python_3-3776AB?style=flat-square&logo=python" />
+      <img src="https://img.shields.io/badge/C++_(Embedded)-00599C?style=flat-square&logo=c%2B%2B" />
+      <img src="https://img.shields.io/badge/Shell_Scripting-4EAA25?style=flat-square&logo=gnu-bash" />
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -40,7 +87,7 @@ My stack focuses on the entire pipeline: from model training to quantization and
 > *Decoupling heavy AI processing from logic control.*
 
 * **The Challenge:** Running Detection, Re-ID, and Business Logic in a single synchronous loop caused massive latency spikes on the edge device.
-* **The Solution:** Designed an asynchronous pipeline using **ZeroMQ (Pub/Sub)** to decouple the Detection Logic workers from the main control loop. Implemented **MobileFaceNet** & **OSNet** embeddings via **Faiss**.
+* **The Solution:** Designed an asynchronous pipeline using **ZeroMQ (Pub/Sub)** to decouple the Detection Logic workers from the main control loop. Implemented **MobileFaceNet** & **OSNet** embeddings optimized with **Faiss**.
 * **The Impact:** ⏱ Achieved **<100ms system latency**, mirroring professional ROS2 architectural patterns.
 
 ### 3. Gesture-Based Hardware Control Bridge
@@ -52,10 +99,12 @@ My stack focuses on the entire pipeline: from model training to quantization and
 
 ---
 
-## 🔭 Current Focus
+## 🔭 Current Focus & Learning
 I am currently transitioning from pure embedded optimization to full robotics orchestration.
-* **Learning:** **ROS2** (Navigation & Control Stacks).
-* **Exploring:** Advanced C++ optimizations for bare-metal performance.
+
+* **Robotics:** Deepening knowledge in **ROS2** (Navigation2, Control Stacks).
+* **Language:** Advanced **C++** memory management for bare-metal performance.
+* **Architecture:** Exploring Hybrid Edge-Cloud architectures for RAG systems.
 
 ---
 
