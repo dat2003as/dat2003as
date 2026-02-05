@@ -3,7 +3,7 @@
 # 👋 Hi, I'm Vo Quoc Dat
 
 
-###  AI Engineer | Computer Vision & Edge NPU | Optimization Specialist
+###  AI Engineer | Computer Vision | Edge AI & NPU Model Optimization
 
 <p align="center">
   <em>Specializing in optimizing Computer Vision models for embedded constraints (Rockchip/Orange Pi). <br>
