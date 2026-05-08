@@ -1,115 +1,331 @@
-<div align="center">
-  
-# 👋 Hi, I'm Vo Quoc Dat
+# Mebieco AI Chatbot
 
+> Multi-agent AI chatbot for high-tech shrimp farming operations — combining RAG document retrieval with Text-to-SQL structured data queries.
 
-###  AI Engineer | Computer Vision | Edge AI & NPU Model Optimization
-
-<p align="center">
-  <em>Specializing in optimizing Computer Vision models for embedded constraints (Rockchip/Orange Pi). <br>
-  Focused on bridging the gap between Python Deep Learning research and real-time Hardware deployment.</em>
-</p>
-
-[![](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/dat614943)
-[![](https://img.shields.io/badge/Email-Contact_Me-D14836?style=for-the-badge&logo=gmail)](mailto:dat614943@gmail.com)
-[![](https://img.shields.io/badge/GitHub-Portfolio-181717?style=for-the-badge&logo=github)](https://github.com/dat2003as)
-
-</div>
+Built with **FastAPI** + **Azure OpenAI** + **PostgreSQL (pgvector)** + **Vanna** + **Redis**
 
 ---
 
-## 🛠 The Toolbox: Hardware & AI Integration
+## Architecture
 
-<table>
-  <tr>
-    <td width="20%"><b>Category</b></td>
-    <td width="80%"><b>Technologies</b></td>
-  </tr>
-  <tr>
-    <td><b>Edge Hardware & NPU</b></td>
-    <td>
-      <img src="https://img.shields.io/badge/Orange_Pi_6-E95420?style=flat-square" />
-      <img src="https://img.shields.io/badge/Rockchip_SDK-000000?style=flat-square&logo=c" />
-      <img src="https://img.shields.io/badge/Jetson_Nano-76B900?style=flat-square&logo=nvidia" />
-    </td>
-  </tr>
-  
-  <tr>
-    <td><b>Deep Learning & CV</b></td>
-    <td>
-      <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white" />
-      <img src="https://img.shields.io/badge/YOLO_v8%2Fv11-00FFFF?style=flat-square" />
-      <img src="https://img.shields.io/badge/Face_Rec_(MobileFaceNet)-4169E1?style=flat-square" />
-      <img src="https://img.shields.io/badge/Person_Re--ID_(OSNet)-8A2BE2?style=flat-square" />
-    </td>
-  </tr>
+![System Architecture](app/img/FullDiagram.png)
 
-  <tr>
-    <td><b>Inference & Search</b></td>
-    <td>
-      <img src="https://img.shields.io/badge/TensorRT-76B900?style=flat-square&logo=nvidia" />
-      <img src="https://img.shields.io/badge/ONNX_Runtime-005CED?style=flat-square" />
-      <img src="https://img.shields.io/badge/Faiss_(Vector_Search)-00ADD8?style=flat-square" />
-      <img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=flat-square&logo=opencv" />
-    </td>
-  </tr>
+### Request Flow
 
-  <tr>
-    <td><b>Backend & DevOps</b></td>
-    <td>
-      <img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi" />
-      <img src="https://img.shields.io/badge/ZeroMQ-DF0000?style=flat-square" />
-      <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker" />
-      <img src="https://img.shields.io/badge/Kafka-231F20?style=flat-square&logo=apachekafka" />
-    </td>
-  </tr>
-  
-  <tr>
-    <td><b>Languages</b></td>
-    <td>
-      <img src="https://img.shields.io/badge/Python_3-3776AB?style=flat-square&logo=python" />
-      <img src="https://img.shields.io/badge/C++_(Embedded)-00599C?style=flat-square&logo=c%2B%2B" />
-      <img src="https://img.shields.io/badge/Shell_Scripting-4EAA25?style=flat-square&logo=gnu-bash" />
-    </td>
-  </tr>
-</table>
+```
+User Request → UUID Detection → Farm Context Resolution → Orchestrator (LLM Agentic Loop)
+                                                              │
+                        ┌─────────────┬──────────────┬────────┴────────┐
+                        ▼             ▼              ▼                 ▼
+                search_documents  query_data   answer_general   search_realtime_info
+                  (RAG Pipeline)  (Vanna SQL)  (LLM Knowledge)  (Prices / Weather)
+                        │             │              │                 │
+                        └─────────────┴──────────────┴────────┬────────┘
+                                                              ▼
+                                                     Final Answer (Vietnamese)
+```
+
+### RBAC — Role-Based Access Control
+
+![RBAC Detail](app/img/Role-Based%20Access%20Control%20—%20Mebieco%20AI%20Chatbot.png)
+
+Chỉ **`query_data`** (Text-to-SQL) bị kiểm tra RBAC. Ba tool còn lại mở cho tất cả role.
+
+| Role | A1 Farm Ops | A2 Inventory | A3 Analytics | A4 IoT |
+|------|:-----------:|:------------:|:------------:|:------:|
+| **farmer** | ✅ | ❌ | ❌ | ✅ |
+| **employee** | ✅ | ✅ | ✅ | ✅ |
+| **manager** | ✅ | ✅ | ✅ | ✅ |
+| **admin** | ✅ | ✅ | ✅ | ✅ |
 
 ---
 
-## 🚀 Engineering Highlights
+## Features
 
-### 1. Embedded NPU Optimization Pipeline (Orange Pi)
-> *Solving the bottleneck of running heavy detection models on limited embedded RAM.*
+### 4 AI Tools
 
-* **The Challenge:** The standard Orange Pi SDK yielded poor inference speeds (~2 FPS) for object detection, making real-time application impossible.
-* **The Solution:** Reverse-engineered the **NOE SDK** to architect a custom `.cix` conversion pipeline. Rewrote inference logic to bypass standard Python overheads.
-* **The Impact:** ⚡ **Boosted inference throughput by 250% (2 FPS → 12 FPS)**, enabling viable real-time edge deployment.
+| Tool | Description | Data Source |
+|------|-------------|------------|
+| `search_documents` | RAG hybrid search — vector cosine + BM25 full-text, merged via RRF (α=0.7) | PostgreSQL + pgvector |
+| `query_data` | Text-to-SQL via Vanna — auto-detect domain (A1–A4), generate & execute SQL | PostgreSQL BE DB |
+| `answer_general` | Aquaculture expert knowledge — diseases, water quality, feeding, pond management | Azure OpenAI LLM |
+| `search_realtime_info` | Real-time shrimp prices (tepbac.com) and weather forecast (wttr.in) | Web scraping / API |
 
-### 2. Low-Latency Distributed Vision System
-> *Decoupling heavy AI processing from logic control.*
+### 4 Data Domains (Vanna Text-to-SQL)
 
-* **The Challenge:** Running Detection, Re-ID, and Business Logic in a single synchronous loop caused massive latency spikes on the edge device.
-* **The Solution:** Designed an asynchronous pipeline using **ZeroMQ (Pub/Sub)** to decouple the Detection Logic workers from the main control loop. Implemented **MobileFaceNet** & **OSNet** embeddings optimized with **Faiss**.
-* **The Impact:** ⏱ Achieved **<100ms system latency**, mirroring professional ROS2 architectural patterns.
+| Domain | Schema | Coverage |
+|--------|--------|----------|
+| **A1** — Farm Operations | `vanna_a1` | Ponds, diseases, sensors, harvesting, feed |
+| **A2** — Inventory | `vanna_a2` | Stock, receipts, materials, suppliers, purchase orders |
+| **A3** — Analytics | `vanna_a3` | KPIs, costs, revenue, performance metrics |
+| **A4** — IoT & Scales | `vanna_a4` | Devices, aerators, pumps, cameras, sensors, cabinets |
 
-### 3. Gesture-Based Hardware Control Bridge
-> *Translating Computer Vision into Physical Action.*
+### Security
 
-* **The Challenge:** Creating a stable, jitter-free interface between Python CV output and Arduino hardware without using heavy protocols.
-* **The Solution:** Developed a real-time MediaPipe pipeline for 1-5 finger classification and engineered a lightweight **Serial Protocol** bridge.
-* **The Impact:** 🤖 Established **negligible latency** communication, allowing fluid real-time control of physical GPIO/LED arrays via hand gestures.
-
----
-
-## 🔭 Current Focus & Learning
-I am currently transitioning from pure embedded optimization to full robotics orchestration.
-
-* **Robotics:** Deepening knowledge in **ROS2** (Navigation2, Control Stacks).
-* **Language:** Advanced **C++** memory management for bare-metal performance.
-* **Architecture:** Exploring Hybrid Edge-Cloud architectures for RAG systems.
+- **UUID Detection** — block data enumeration attempts
+- **Farm Isolation** — `farm_id` filter enforced on all queries
+- **SQL Guardrail** — SELECT-only, injection pattern blocking, farm_id verification
+- **RLS Context** — `SET app.current_farm_id` on every connection
+- **Cross-Farm Blocking** — LLM extracts farm mentions, verifies authorization
+- **Anti-Hallucination** — hide UUIDs, table names, SQL from responses
+- **Soft Delete** — `IsDeleted = false` check enforced
 
 ---
 
-<div align="center">
-  <p>© 2025 Vo Quoc Dat. Building intelligence at the edge.</p>
-</div>
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Runtime** | Python 3.11, FastAPI, Uvicorn |
+| **LLM Chat** | Azure OpenAI — `gpt-4.1-mini` |
+| **Embeddings** | Azure OpenAI — `text-embedding-3-small` (1536 dims) |
+| **Text-to-SQL** | Vanna 2.0 (monkey-patched HuggingFace → Azure embeddings) |
+| **Vector DB** | PostgreSQL + pgvector (IVFFlat index, cosine similarity) |
+| **Business DB** | PostgreSQL (async + sync pools, RLS) |
+| **Session Memory** | Redis Cluster — 3-turn window, 30min TTL |
+| **Observability** | structlog, in-memory request tracker, debug dashboards |
+
+---
+
+## Project Structure
+
+```
+mebieco-ai-chatbot/
+├── app/
+│   ├── main.py                    # FastAPI entry point, CORS, debug routes
+│   ├── dependencies.py            # DB engine, Redis client, DI providers
+│   ├── api/
+│   │   ├── chat.py                # POST /api/v1/chat
+│   │   ├── ingest.py              # POST /api/v1/ingest (file upload)
+│   │   ├── farm_context.py        # Farm name resolution + authorization
+│   │   └── shrimp_prices.py       # Shrimp price API for MB app (tepbac.com scraper)
+│   ├── core/
+│   │   ├── config.py              # Pydantic Settings (all env vars)
+│   │   ├── llm_clients.py         # Azure OpenAI async client factory
+│   │   ├── db_pool.py             # psycopg2 connection pool (sync)
+│   │   └── permissions.py         # RBAC: role → allowed domains
+│   ├── orchestrator/
+│   │   ├── orchestrator.py        # LLM agentic loop (max 5 iterations)
+│   │   ├── tool_registry.py       # 4 tool definitions (OpenAI function schema)
+│   │   └── tool_executor.py       # Tool dispatch & execution
+│   ├── rag/
+│   │   ├── retriever.py           # Hybrid search: vector + FTS + RRF fusion
+│   │   └── chunker.py             # Token-based splitting (800 tokens/chunk)
+│   ├── vanna/
+│   │   ├── agent.py               # VannaAgent — singleton per domain
+│   │   ├── intent_detector.py     # LLM domain classification (A1–A4)
+│   │   ├── domain_router.py       # farm_id → domain mapping
+│   │   ├── guardrail.py           # SQL validation (SELECT-only, injection block)
+│   │   ├── executor.py            # SQL execution (readonly, RLS, LIMIT 500)
+│   │   └── error_logger.py        # CSV error logging
+│   ├── embedding/
+│   │   └── embedder.py            # Azure OpenAI embedding with retry/batch
+│   ├── memory/
+│   │   └── session_memory.py      # Redis-backed conversation history
+│   ├── ingest/
+│   │   ├── pipeline.py            # Load → Chunk → Embed → Store
+│   │   └── loaders.py             # PDF, DOCX, MD, TXT, XLSX
+│   ├── prompts/
+│   │   ├── system_prompt.py       # Classification rules + RBAC + anti-hallucination
+│   │   └── rag_prompt.py          # RAG synthesis instructions
+│   ├── debug/
+│   │   ├── request_tracker.py     # In-memory ring buffer (20 logs)
+│   │   ├── tracer.py              # structlog configuration
+│   │   ├── dashboard.html         # Debug dashboard UI
+│   │   └── 3d_flow.html           # 3D flow visualization
+│   └── img/                       # Screenshots & diagrams
+├── scripts/
+│   ├── init_db.py                 # Create doc_embeddings table (pgvector)
+│   └── ingest_docs.py             # Batch ingest documents
+├── tests/
+├── docs/
+│   ├── mebieco-architecture.drawio
+│   └── mebieco-rbac-detail.drawio
+├── requirements.txt
+└── .env
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.11+
+- PostgreSQL with [pgvector](https://github.com/pgvector/pgvector) extension
+- Redis (local or Azure Redis Cluster)
+- Azure OpenAI resource (chat + embedding deployments)
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://github.com/dat2003as/mebieco-ai-chatbot.git
+cd mebieco-ai-chatbot
+
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+.venv\Scripts\activate     # Windows
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+# ─── Azure OpenAI — Chat ───────────────────────────────
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_API_KEY=your-api-key
+AZURE_OPENAI_API_VERSION=2024-08-01-preview
+AZURE_OPENAI_CHAT_DEPLOYMENT=gpt-4.1-mini
+
+# ─── Azure OpenAI — Embeddings ─────────────────────────
+AZURE_OPENAI_EMBED_ENDPOINT=https://your-embed-resource.openai.azure.com/
+AZURE_OPENAI_EMBED_API_KEY=your-embed-api-key
+AZURE_OPENAI_EMBED_API_VERSION=2024-08-01-preview
+AZURE_OPENAI_EMBED_DEPLOYMENT=text-embedding-3-small
+
+# ─── PostgreSQL + pgvector (RAG vector store) ──────────
+DATABASE_URL=postgresql+asyncpg://user:pass@host:5432/dbname
+
+# ─── PostgreSQL — BE Database (business data) ──────────
+BE_DB_URL=postgresql://user:pass@host:5432/dbname
+PG_HOST=host
+PG_DB=dbname
+PG_USER=user
+PG_PASSWORD=pass
+PG_PORT=5432
+
+# ─── Redis ──────────────────────────────────────────────
+REDIS_URL=redis://localhost:6379/0
+SESSION_TTL_SECONDS=1800
+
+# ─── RAG Tuning ────────────────────────────────────────
+RAG_TOP_K=5
+RAG_SIMILARITY_THRESHOLD=0.35
+RAG_HYBRID_ALPHA=0.7
+
+# ─── Debug ──────────────────────────────────────────────
+LOG_LEVEL=DEBUG
+TRACE_TOOL_CALLS=true
+TRACE_RETRIEVAL=true
+```
+
+### Database Setup
+
+```bash
+# Create pgvector table for RAG
+python scripts/init_db.py
+
+# Ingest documents (SOPs, guides, FAQs)
+python scripts/ingest_docs.py
+```
+
+### Run
+
+```bash
+# Development (with hot reload)
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+---
+
+## Vanna Training
+
+Vanna sử dụng 3 loại file để training cho mỗi domain:
+
+| File Type | Purpose | Example |
+|-----------|---------|---------|
+| `.sql` | DDL schema + sample queries | `CREATE TABLE`, `SELECT ... JOIN` |
+| `.csv` | Question-SQL pairs | `"Liệt kê ao nuôi","SELECT * FROM Tbl_Pond"` |
+| `.md` | Documentation context | Business rules, field descriptions |
+
+```bash
+# A1 — Farm Operations
+python Vanna_AO/trainVanaKhoThu2\ 1.py
+
+# A2 — Inventory Warehouse
+python trainVanaKhoThu2.py
+
+# A4 — IoT & Scales
+python A4_IoT_Device_Vanna/trainVanaIoTThu4.py
+```
+
+Training data được lưu vào PostgreSQL schemas riêng biệt (`vanna_a1` ~ `vanna_a4`), mỗi domain có vector context riêng.
+
+---
+
+## API Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `POST` | `/api/v1/chat` | Main chat endpoint |
+| `POST` | `/api/v1/ingest` | Document ingestion (file upload) |
+| `GET` | `/shrimp-prices` | Shrimp price data for MB app (tepbac.com) |
+| `GET` | `/debug-dashboard` | Debug dashboard UI |
+| `GET` | `/3d-flow` | 3D flow visualization |
+| `GET` | `/api/v1/debug/requests` | Debug request logs (JSON) |
+| `DELETE` | `/api/v1/debug/requests` | Clear debug logs |
+| `GET` | `/` | Health check |
+
+### Chat Request
+
+```bash
+curl -X POST http://localhost:8000/api/v1/chat \
+  -H "Content-Type: application/json" \
+  -d '{
+    "session_id": "test-session-001",
+    "farm_id": "your-farm-uuid",
+    "role": "farmer",
+    "message": "Hiện tại trong kho còn những vật tư gì vậy?"
+  }'
+```
+
+### Response
+
+```json
+{
+  "session_id": "test-session-001",
+  "answer": "Hiện tại trong kho của Farm 5 Kiên Giang có các vật tư sau: ..."
+}
+```
+
+---
+
+## Debug & Observability
+
+### Debug Dashboard
+
+Theo dõi real-time các request, tool calls, token usage và response time.
+
+**Document Search & General Knowledge:**
+
+![Debug Dashboard — Documents](app/img/debug_dashboard_Documents.png)
+
+**Shrimp Prices & Weather:**
+
+![Debug Dashboard — Prices & Weather](app/img/debug_dashboard_GiaTom_ThoiTiet.png)
+
+**Out-of-Scope & Query Data:**
+
+![Debug Dashboard — Query Data](app/img/debug_dashboard_OOScope_QueryData.png)
+
+**Weather & Document Search (SOP/Guides):**
+
+![Debug Dashboard — Weather & Guides](app/img/debug_dashboard_ThoiTiet_HuongDan.png)
+
+### 3D Flow Visualization
+
+Trực quan hóa luồng xử lý request dưới dạng 3D graph.
+
+![3D Flow View](app/img/3dlow.png)
+
+---
+
+## License
+
+Internal project — Mebisoft / Mebieco.
